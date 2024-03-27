@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 function Login(props) {
     const [formData, setFormData] = useState(null);
+    const [message, setMessage] = useState(null);
 
     const handleChange = (e) => {
         let { name, value } = e.target;
@@ -16,9 +17,16 @@ function Login(props) {
     const submitForm = async (e) => {
         e.preventDefault();
         const response = await fetch(`http://localhost:5000/users?email=${formData.email}&password=${formData.password}`, { method: "GET" });
-        const user = await response.json();
+        if (response.ok) {
+            const user = await response.json();
+            if (user.length > 0) {
+                localStorage.setItem("todouser", JSON.stringify(user[0]))
+                setMessage("logged in successfully");
+            }
+        } else {
+            setMessage("something went wrong, please try again");
+        }
 
-        alert("logged in successfully");
 
     }
 
@@ -33,6 +41,8 @@ function Login(props) {
                 <label className='form-label'>Password</label>
                 <input type="password" name='password' className='form-control' onChange={handleChange} />
             </div>
+            <p>{message}</p>
+
             <button onClick={submitForm} className='btn btn-primary'>Login</button>
         </form>
     );

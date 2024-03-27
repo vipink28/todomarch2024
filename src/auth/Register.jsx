@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 function Register(props) {
     const [formData, setFormData] = useState(null);
+    const [message, setMessage] = useState(null);
 
     const handleChange = (e) => {
         let { name, value } = e.target;
@@ -15,7 +16,6 @@ function Register(props) {
 
     const submitForm = async (e) => {
         e.preventDefault();
-        //fetch()
 
         let config = {
             method: "POST",
@@ -24,8 +24,24 @@ function Register(props) {
             },
             body: JSON.stringify(formData)
         }
-        const response = await fetch(`http://localhost:5000/users`, config)
-        console.log(response);
+
+        const checkUser = await fetch(`http://localhost:5000/users?email=${formData.email}`, { method: "GET" });
+        if (checkUser.ok) {
+            const user = await checkUser.json();
+            if (user.length > 0) {
+                setMessage("User already exists");
+            } else {
+                const response = await fetch(`http://localhost:5000/users`, config);
+                if (response.status === 201) {
+                    setMessage("User created successfully");
+                } else {
+                    setMessage("something went wrong");
+                }
+            }
+        } else {
+            setMessage("something went wrong");
+        }
+
     }
 
     return (
@@ -42,6 +58,8 @@ function Register(props) {
                 <label className='form-label'>Password</label>
                 <input type="password" name='password' className='form-control' onChange={handleChange} />
             </div>
+
+            <p>{message}</p>
             <button onClick={submitForm} className='btn btn-primary'>Register</button>
         </form>
     );

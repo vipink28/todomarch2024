@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Register(props) {
     const [formData, setFormData] = useState(null);
     const [message, setMessage] = useState(null);
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         let { name, value } = e.target;
@@ -33,7 +35,12 @@ function Register(props) {
             } else {
                 const response = await fetch(`http://localhost:5000/users`, config);
                 if (response.status === 201) {
+                    const user = await response.json();
+                    localStorage.setItem("todouser", JSON.stringify(user));
                     setMessage("User created successfully");
+                    setTimeout(() => {
+                        navigate("/task-list");
+                    }, 3000)
                 } else {
                     setMessage("something went wrong");
                 }

@@ -1,28 +1,10 @@
 {
   "users": [
     {
-      "name": "Vipin",
-      "email": "abc@gmail.com",
-      "password": "admin",
-      "id": 1
-    },
-    {
-      "name": "Vipin",
+      "name": "Vipin Kumar",
       "email": "vipin@gmail.com",
       "password": "admin",
-      "id": 2
-    },
-    {
-      "name": "Vipin",
-      "email": "amit@gmail.com",
-      "password": "admin",
-      "id": 3
-    },
-    {
-      "name": "Aman",
-      "email": "aman@gmail.com",
-      "password": "admin",
-      "id": 4
+      "id": 1
     }
   ],
   "tasks": []

@@ -1,7 +1,16 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 function Navbar(props) {
+    const [user, setUser] = useState(null);
+    useEffect(() => {
+        let local = localStorage.getItem("todouser");
+        if (local) {
+            let localuser = JSON.parse(local);
+            setUser(localuser);
+        }
+    }, []);
+
     return (
         <nav className="navbar navbar-expand-lg bg-body-tertiary">
             <div className="container-fluid">
@@ -24,7 +33,7 @@ function Navbar(props) {
                             <Link className="nav-link" to="/task-list">Task List</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="/profile">Profile</Link>
+                            <Link className="nav-link" to="/profile">{user?.name}</Link>
                         </li>
 
                         <li className="nav-item dropdown">

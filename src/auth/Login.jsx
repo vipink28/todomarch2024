@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Login(props) {
     const [formData, setFormData] = useState(null);
     const [message, setMessage] = useState(null);
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         let { name, value } = e.target;
@@ -22,12 +24,13 @@ function Login(props) {
             if (user.length > 0) {
                 localStorage.setItem("todouser", JSON.stringify(user[0]))
                 setMessage("logged in successfully");
+                setTimeout(() => {
+                    navigate("/task-list");
+                }, 3000)
             }
         } else {
             setMessage("something went wrong, please try again");
         }
-
-
     }
 
 

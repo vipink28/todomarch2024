@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import AuthContext from './AuthContext';
 
 function Register(props) {
     const [formData, setFormData] = useState(null);
-    const [message, setMessage] = useState(null);
-    const navigate = useNavigate();
+    const { message, registerUser } = useContext(AuthContext);
 
     const handleChange = (e) => {
         let { name, value } = e.target;
@@ -16,40 +16,11 @@ function Register(props) {
         })
     }
 
-    const submitForm = async (e) => {
+    const submitForm = (e) => {
         e.preventDefault();
-
-        let config = {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(formData)
-        }
-
-        const checkUser = await fetch(`http://localhost:5000/users?email=${formData.email}`, { method: "GET" });
-        if (checkUser.ok) {
-            const user = await checkUser.json();
-            if (user.length > 0) {
-                setMessage("User already exists");
-            } else {
-                const response = await fetch(`http://localhost:5000/users`, config);
-                if (response.status === 201) {
-                    const user = await response.json();
-                    localStorage.setItem("todouser", JSON.stringify(user));
-                    setMessage("User created successfully");
-                    setTimeout(() => {
-                        navigate("/task-list");
-                    }, 3000)
-                } else {
-                    setMessage("something went wrong");
-                }
-            }
-        } else {
-            setMessage("something went wrong");
-        }
-
+        registerUser(formData);
     }
+
 
     return (
         <form>

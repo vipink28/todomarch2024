@@ -1,15 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import AuthContext from '../auth/AuthContext';
 
 function Navbar(props) {
-    const [user, setUser] = useState(null);
-    useEffect(() => {
-        let local = localStorage.getItem("todouser");
-        if (local) {
-            let localuser = JSON.parse(local);
-            setUser(localuser);
-        }
-    }, []);
+    const { user } = useContext(AuthContext);
 
     return (
         <nav className="navbar navbar-expand-lg bg-body-tertiary">

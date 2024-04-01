@@ -65,7 +65,20 @@ export const AuthProvider = ({ children }) => {
     }
 
 
-
+    // check user exists in database
+    const checkUserData = async (email) => {
+        const response = await fetch(`http://localhost:5000/users?email=${email}`, { method: "GET" });
+        if (response.ok) {
+            const user = await response.json();
+            if (user.length > 0) {
+                setUser(user[0]);
+            } else {
+                localStorage.removeItem("todouser");
+            }
+        } else {
+            console.log("something went wrong");
+        }
+    }
 
 
 
@@ -77,7 +90,7 @@ export const AuthProvider = ({ children }) => {
         let local = localStorage.getItem("todouser");
         if (local) {
             let localuser = JSON.parse(local);
-            setUser(localuser);
+            checkUserData(localuser.email);
         }
     }, []);
 

@@ -1,10 +1,14 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from './AuthContext';
 
 function Login(props) {
     const [formData, setFormData] = useState(null);
-    const { message, login } = useContext(AuthContext);
+    const { message, login, setMessage } = useContext(AuthContext);
+
+    useEffect(() => {
+        setMessage("");
+    }, [])
 
     const handleChange = (e) => {
         let { name, value } = e.target;

@@ -99,7 +99,8 @@ export const AuthProvider = ({ children }) => {
             user,
             message,
             registerUser,
-            login
+            login,
+            setMessage
         }}>
             {children}
         </AuthContext.Provider>

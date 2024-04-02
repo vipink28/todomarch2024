@@ -1,10 +1,14 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from './AuthContext';
 
 function Register(props) {
     const [formData, setFormData] = useState(null);
-    const { message, registerUser } = useContext(AuthContext);
+    const { message, registerUser, setMessage } = useContext(AuthContext);
+
+    useEffect(() => {
+        setMessage("");
+    }, [])
 
     const handleChange = (e) => {
         let { name, value } = e.target;

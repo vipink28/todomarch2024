@@ -80,9 +80,11 @@ export const AuthProvider = ({ children }) => {
         }
     }
 
-
-
-
+    const logout = () => {
+        localStorage.removeItem("todouser");
+        setUser(null);
+        navigate("/login");
+    }
 
 
     // get user on page load
@@ -100,7 +102,8 @@ export const AuthProvider = ({ children }) => {
             message,
             registerUser,
             login,
-            setMessage
+            setMessage,
+            logout
         }}>
             {children}
         </AuthContext.Provider>

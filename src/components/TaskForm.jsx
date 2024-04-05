@@ -9,7 +9,7 @@ function TaskForm(props) {
         duedate: ""
     }
 
-    const { isUpdate, data } = props;
+    const { isUpdate, data, setIsUpdate } = props;
     console.log(data);
     const [formData, setFormData] = useState(init);
     const { message, user, setMessage } = useContext(AuthContext);
@@ -48,8 +48,10 @@ function TaskForm(props) {
         updateTask(formData);
     }
 
-    const cancel = () => {
-
+    const cancel = (e) => {
+        e.preventDefault();
+        setIsUpdate(false);
+        setFormData(init);
     }
 
     return (

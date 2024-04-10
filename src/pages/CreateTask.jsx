@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import TaskForm from '../components/TaskForm';
 import TaskContext from '../context/TaskContext';
 import { Link } from 'react-router-dom';
+import { formatDate } from '../helper';
 
 function CreateTask(props) {
     const { latestTask, recentTasks } = useContext(TaskContext);
@@ -13,7 +14,9 @@ function CreateTask(props) {
         <div className='container-fluid h-100'>
             <div className='row h-100'>
                 <div className='d-flex align-items-center justify-content-center h-100 col-lg-6 flex-column bg-primary'>
-                    <TaskForm isUpdate={isUpdate} data={latestTask} setIsUpdate={setIsUpdate} />
+                    <div className='w-50'>
+                        <TaskForm isUpdate={isUpdate} data={latestTask} setIsUpdate={setIsUpdate} />
+                    </div>
                 </div>
                 <div className='d-flex align-items-center justify-content-center h-100 col-lg-6 flex-column'>
 
@@ -25,8 +28,8 @@ function CreateTask(props) {
                         <h4>{latestTask?.title}</h4>
                         <p>{latestTask?.description}</p>
                         <div className='d-flex text-warning'>
-                            <p>Due Date: {latestTask?.duedate}</p>
-                            <p className='ms-auto'>Modified On: {latestTask?.modifiedon}</p>
+                            <p>Due Date: {formatDate(latestTask?.duedate)}</p>
+                            <p className='ms-auto'>Modified On: {formatDate(latestTask?.modifiedon)}</p>
                         </div>
                     </div>
 

@@ -1,4 +1,4 @@
-import React, { useContext, useReducer } from 'react';
+import React, { useContext, useEffect, useReducer, useState } from 'react';
 import { Link } from 'react-router-dom';
 import TaskContext from '../context/TaskContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -18,7 +18,19 @@ const reducer = (state, action) => {
 function TaskList(props) {
     const { allTasks } = useContext(TaskContext);
     const [state, dispatch] = useReducer(reducer, null);
+    const [filteredTasks, setFilteredTasks] = useState(allTasks);
 
+    useEffect(() => {
+        setFilteredTasks(allTasks);
+    }, [allTasks])
+
+    const handleSearch = (e) => {
+        let { value } = e.target;
+        const filteredArr = allTasks.filter((task) => {
+            return task.title.includes(value);
+        })
+        setFilteredTasks(filteredArr);
+    }
 
     return (
         <div className='container'>
@@ -26,6 +38,10 @@ function TaskList(props) {
                 <div className='d-flex mb-2'>
                     <h3>Task List</h3>
                     <Link className='btn btn-info ms-auto' to="/create-task">Create Task</Link>
+                </div>
+
+                <div className='py-2'>
+                    <input type="text" className='form-control' placeholder='Search task' onChange={handleSearch} />
                 </div>
 
                 <div className='py-3'>
@@ -37,7 +53,7 @@ function TaskList(props) {
                         <div className='col-2'>Actions</div>
                     </div>
                     {
-                        allTasks?.map((task) => {
+                        filteredTasks?.map((task) => {
                             return (
                                 <div className='row border border-light py-2'>
                                     <div className='col-1'>{task?.id}</div>

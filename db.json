@@ -35,22 +35,6 @@
       "id": 1
     },
     {
-      "title": "Meeting ",
-      "userid": 1,
-      "modifiedon": "Wed Apr 03 2024 10:10:40 GMT+0530 (India Standard Time)",
-      "description": "Meeting with another client",
-      "duedate": "2024-04-12T14:14",
-      "id": 2
-    },
-    {
-      "title": "Grocery",
-      "userid": 1,
-      "modifiedon": "Wed Apr 03 2024 10:11:03 GMT+0530 (India Standard Time)",
-      "description": "Buy grocery for home",
-      "duedate": "2024-04-27T14:18",
-      "id": 3
-    },
-    {
       "title": "Bill",
       "userid": 1,
       "modifiedon": "Wed Apr 03 2024 10:11:25 GMT+0530 (India Standard Time)",
